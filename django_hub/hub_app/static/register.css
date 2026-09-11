@@ -1,0 +1,25 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+.split-layout { display: flex; min-height: 100vh; }
+.brand-panel {
+    flex: 1;
+    background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070') center/cover;
+    color: white; padding: 4rem; display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+}
+.brand-panel::before {
+    content: ''; position: absolute; inset: 0; background: rgba(44, 62, 80, 0.85);
+}
+.brand-panel h2, .brand-panel p { position: relative; z-index: 1; }
+.brand-panel h2 { font-size: 3rem; margin-bottom: 1rem; }
+.form-panel {
+    flex: 1; background: #fff; padding: 4rem; display: flex;
+    flex-direction: column; justify-content: center;
+}
+.form-panel h3 { color: #2c3e50; font-size: 2rem; margin-bottom: 2rem; }
+form p { margin-bottom: 1rem; }
+input { width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 4px; margin-top: 0.5rem; }
+button {
+    background: #e67e22; color: white; padding: 1rem 2rem; border: none;
+    border-radius: 4px; cursor: pointer; font-size: 1.1rem; margin-top: 1rem;
+}
+button:hover { background: #d35400; }

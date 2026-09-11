@@ -1,0 +1,195 @@
+/* --- Global Reset & Theme Variables --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Shared Card Container (Login, Register, Index) --- */
+.page-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.card h1, .card h2 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.card p {
+    color: #8b949e;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+/* --- Form Layouts --- */
+form {
+    text-align: left;
+}
+
+form p {
+    margin-bottom: 1.2rem;
+    color: #8b949e;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-top: 0.4rem;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+/* --- Buttons & Links --- */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    background-color: #238636;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 1rem;
+}
+
+.btn:hover {
+    background-color: #2ea043;
+}
+
+.btn-secondary {
+    background-color: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    margin-top: 0.8rem;
+}
+
+.btn-secondary:hover {
+    background-color: #30363d;
+    color: #ffffff;
+}
+
+/* --- Hub Dashboard Layout --- */
+.hub-nav {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hub-nav h2 {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.logout-link {
+    color: #f85149;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.hub-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    width: 100%;
+}
+
+.hub-header {
+    margin-bottom: 2rem;
+}
+
+.hub-header h1 {
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.demo-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.demo-card:hover {
+    border-color: #58a6ff;
+    transform: translateY(-2px);
+}
+
+.demo-card h3 {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.demo-card a {
+    background: #58a6ff;
+    color: #0d1117;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.demo-card a:hover {
+    background: #79c0ff;
+}

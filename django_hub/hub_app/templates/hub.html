@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>University of Debrecen - Living Lab</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <nav class="hub-nav">
+        <h2>Unideb Living Lab</h2>
+        <div>
+            <span style="margin-right: 1.5rem; color: #8b949e;">User: {{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="logout-link">Disconnect</a>
+        </div>
+    </nav>
+
+    <div class="hub-body">
+        <div class="hub-header">
+            <h1>Our Demonstrations</h1>
+            <p style="color: #8b949e;">Select a containerized environment to launch.</p>
+        </div>
+
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h3>The demographic challenges in AI training</h3>
+                <a href="/demo1/">Launch</a>
+            </div>
+            <!-- Duplicate demo-card blocks for -->
+        </div>
+    </div>
+</body>
+</html>
