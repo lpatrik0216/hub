@@ -56,3 +56,11 @@ services:
       - "8501"
     env_file:
       - ./streamlit/streamlit_demo5/.env
+
+  demo6:
+    build: ./streamlit/streamlit_demo6
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.baseUrlPath="/demo6" --server.enableCORS=false --server.enableXsrfProtection=false
+    expose:
+      - "8501"
+    env_file:
+      - ./streamlit/streamlit_demo6/.env
