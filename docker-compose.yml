@@ -32,3 +32,27 @@ services:
     command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.baseUrlPath="/demo2" --server.enableCORS=false --server.enableXsrfProtection=false
     expose:
       - "8501"
+
+  demo3:
+    build: ./streamlit/streamlit_demo3
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.baseUrlPath="/demo3" --server.enableCORS=false --server.enableXsrfProtection=false
+    expose:
+      - "8501"
+    env_file:
+      - ./streamlit/streamlit_demo3/.env
+    
+  demo4:
+    build: ./streamlit/streamlit_demo4
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.baseUrlPath="/demo4" --server.enableCORS=false --server.enableXsrfProtection=false
+    expose:
+      - "8501"
+    env_file:
+      - ./streamlit/streamlit_demo4/.env
+
+  demo5:
+    build: ./streamlit/streamlit_demo5
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.baseUrlPath="/demo5" --server.enableCORS=false --server.enableXsrfProtection=false
+    expose:
+      - "8501"
+    env_file:
+      - ./streamlit/streamlit_demo5/.env

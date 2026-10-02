@@ -10,6 +10,26 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="INPACE Living Lab - AI Data Drift", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    /* Hide the top right menu and deploy button */
+    [data-testid="stToolbar"] {
+        visibility: hidden !important;
+    }
+    /* Hide the default Streamlit footer */
+    footer {
+        visibility: hidden !important;
+    }
+    /* Hide the top header line (optional, keeps the colored line from rendering) */
+    [data-testid="stHeader"] {
+        visibility: hidden !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- PRESENTATION CONTEXT & INTRO ---
 st.title("Medical AI Data Drift Demonstration")
 
@@ -100,9 +120,37 @@ def train_models(current_pop_b):
 
 model_base, model_recalibrated = train_models(pop_b)
 
-tab1, tab2, tab3, tab4 = st.tabs(["1. Base model (Western population)", "2. Domain Shift (Asian population)", "3. Recalibrated model", "4. Patient simulation"])
-
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["1. Information","2. Base model (Western population)", "3. Domain Shift (Asian population)", "4. Recalibrated model", "5. Patient simulation"])
 with tab1:
+    st.markdown("""
+### 1. The Core Concept: The Danger of Data Drift
+Artificial Intelligence does not possess medical intuition; it strictly learns the mathematical boundaries of whatever data it is fed. If an AI is trained exclusively on a Western population, it calculates the "normal" biological baselines unique to that specific demographic. 
+
+**Data Drift** is the phenomenon where this exact same model is deployed to a new environment—in our demonstration, an Asian demographic. Because different human populations exhibit natural biological variations (such as naturally elevated Thyroid-Stimulating Hormone, or TSH, levels), the AI misinterprets these healthy natural variations as disease. It blindly applies Western rules to Asian biology, resulting in dangerous misdiagnoses and a massive spike in false alarms.
+
+### 2. How the AI Learns: The Random Forest Algorithm
+To diagnose patients, this demonstration utilizes a **Random Forest Classifier**. Rather than relying on a single rigid formula, this algorithm acts like a consultation board made up of 100 different human doctors.
+
+* **Decision Trees:** During training, the AI builds dozens of individual "trees," which act like flowcharts. Each tree scans the patient data to find the best thresholds to separate healthy patients from sick ones (e.g., *If TSH > 4.5 and Age > 50, then predict Sick*).
+* **The Forest (Ensemble Learning):** A single tree might make a mistake based on a weird quirk in the data. To prevent this, the "Forest" generates 100 different trees, each looking at a slightly different, randomized slice of the patients. When a new patient arrives, all 100 trees vote on the diagnosis, and the majority wins. This creates highly stable, accurate predictions.
+
+### 3. How to Use This Interactive Demonstration
+This dashboard is not a static presentation; it is a live, functioning AI environment. As you interact with the controls, you are actively manipulating the data and forcing the AI models to retrain themselves in real-time.
+
+* **The TSH Shift Slider (Sidebar/Top):** This slider controls the *severity* of the Data Drift. By increasing the multiplier, you are telling the system to artificially elevate the healthy TSH baselines of the Asian population. When you move this slider, you are literally changing the underlying biology of thousands of simulated patients. The AI instantly deletes its old brain, reads your new data, and retrains both of its models from scratch to adapt to the new reality.
+* **Tabs 1 & 2 (The Collapse):** Watch how the "Base Model" performs perfectly on Western data (Tab 1), but completely collapses when tested on the Asian data (Tab 2). Because it was never taught that Asian populations have higher TSH levels, its rigid Western thresholds trigger massive false positives. 
+* **Tab 3 (The Fix):** Instead of building two entirely separate applications for different hospitals, we propose a data-engineering solution: **Recalibration**. Here, we merged the datasets and injected a simple demographic flag (`is_asian`). The Random Forest now builds dynamic, branching rules: *Is this patient Asian? If yes, use a higher TSH threshold. If no, use the standard threshold.* The model becomes context-aware.
+* **Tab 4 (Patient Simulator):** Here, you play the role of the doctor. Input a hypothetical patient's vitals. Notice that the Base Model completely ignores the "Demographic" dropdown—it literally lacks the vocabulary to understand race or region. However, the Recalibrated Model listens to that dropdown and will dynamically alter its diagnosis based on the patient's background.
+
+### 4. The Evaluation Toolkit: Measuring the Truth
+In medical AI, simply asking "Is the AI accurate?" is a dangerous trap. We use specific metrics and tools to evaluate safety and transparency:
+
+* **Accuracy:** The overall percentage of correct predictions. If a hospital dataset has 99 healthy patients and 1 sick patient, an AI could blindly guess "Healthy" every single time. It would boast 99% Accuracy, but completely fail to identify the one sick patient who needed help. This is why Accuracy is highly misleading in medicine.
+* **Recall (Sensitivity):** Out of all the patients who were truly sick, how many did the AI successfully catch? High recall is a critical clinical requirement because sending a sick patient home is a fatal error.
+* **F1-Score:** The gold standard metric for this demonstration. It calculates a strict, mathematical balance between catching the sick patients (Recall) and not triggering constant false alarms for the healthy patients (Precision). If the F1-Score drops, the model is failing its primary medical duty.
+* **SHAP (Explainable AI):** AI is notoriously criticized as an unreadable "black box." SHAP (*SHapley Additive exPlanations*) acts as an X-ray for the algorithm. In Tab 2, the SHAP charts visually prove exactly how much a patient's specific Age or TSH level pushed the AI toward its final decision, ensuring human doctors can trust and verify the machine's logic.
+""")
+with tab2:
     st.header("1. Step: Base model")
     st.write("This model was trained exclusively on a Western population. Let's see how it performs on its own demographic.")
 
@@ -111,7 +159,7 @@ with tab1:
 
     st.metric(label="F1-Score (Western Population)", value=f"{f1_A * 100:.2f}%")
 
-with tab2:
+with tab3:
     st.header("Step 2: Data Shift and the AI's Collapse")
     st.write("We will now test the exact same Western model on the Asian demographic without any adjustments.")
 
@@ -147,7 +195,7 @@ with tab2:
         st.pyplot(plt.gcf())
         plt.clf()
 
-with tab3:
+with tab4:
     st.header("3. Step: AI Recalibration and Fair Decision-Making")
     st.write("The model was retrained on a comprehensive dataset incorporating both Western and Asian populations, explicitly providing demographic context via an `is_asian` flag.")
 
@@ -185,7 +233,7 @@ with tab3:
     st.write("To solve this problem, we use another metric: **Recall**, which tells us how many unhealthy patients our model actually successfully found out of all the truly unhealthy ones.")
     st.write("Finally, our **F1-Score**. Instead of just validating our model on a single, easily skewed metric like Accuracy, the F1 score evaluates it based on a strict balance of both Precision and Recall.")
 
-with tab4:
+with tab5:
     st.header("Patient Simulator")
     st.write("Input a hypothetical patient's data to see how the two models differ in their diagnosis.")
 

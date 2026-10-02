@@ -6,6 +6,25 @@ import os
 
 st.set_page_config(page_title="Digital Twin Simulator", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    /* Hide the top right menu and deploy button */
+    [data-testid="stToolbar"] {
+        visibility: hidden !important;
+    }
+    /* Hide the default Streamlit footer */
+    footer {
+        visibility: hidden !important;
+    }
+    /* Hide the top header line (optional, keeps the colored line from rendering) */
+    [data-testid="stHeader"] {
+        visibility: hidden !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # --- PRESENTATION CONTEXT & INTRO ---
 st.title("Medical AI Digital Twin: Continuous Thyroid Simulation")
 
